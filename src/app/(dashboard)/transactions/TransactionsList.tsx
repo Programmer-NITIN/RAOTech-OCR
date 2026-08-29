@@ -402,14 +402,11 @@ export default function TransactionsList({
               Delete From Tally ({deletable.length})
             </Button>
           )}
+          {/* Export XML and Push to Tally now route to the pricing page. */}
           <Button
             size="sm"
             disabled={busy}
-            onClick={() =>
-              exportTally(
-                selected.size ? [...selected] : undefined
-              )
-            }
+            onClick={() => router.push("/pricing")}
             className="bg-green-600 hover:bg-green-500 text-white"
           >
             <Download className="mr-2 h-4 w-4" />
@@ -418,14 +415,7 @@ export default function TransactionsList({
           <Button
             size="sm"
             className="bg-[#0b6b3a] hover:bg-[#0a5c32]"
-            disabled={!selected.size || push.state.phase !== "idle" || pushBlocked}
-            title={
-              pushBlocked
-                ? preflight?.reason ??
-                  `${preflight?.blockingCount} of these would be rejected by Tally. Fix them first.`
-                : undefined
-            }
-            onClick={() => push.start([...selected])}
+            onClick={() => router.push("/pricing")}
           >
             <Send className="mr-2 h-4 w-4" />
             Push to Tally ({selected.size})
