@@ -180,12 +180,12 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
           </span>
         )}
         {invoice.ocrEngine && (
-          <span className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-medium">
+          <span className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300 font-medium">
             {invoice.ocrEngine}
           </span>
         )}
         {invoice.processingTime && (
-          <span className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-medium">
+          <span className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-700 dark:bg-zinc-800 dark:text-zinc-300 font-medium">
             {invoice.processingTime.toFixed(1)}s
           </span>
         )}
@@ -193,8 +193,8 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Vendor Info */}
-        <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm p-5">
-          <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+        <div className="border border-slate-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 shadow-sm p-5">
+          <h3 className="text-sm font-semibold text-slate-600 dark:text-zinc-400 uppercase tracking-wide mb-4 flex items-center gap-2">
             <Building2 className="h-4 w-4 text-blue-600 dark:text-blue-400" /> Vendor Details
           </h3>
           <div className="space-y-3">
@@ -206,8 +206,8 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
         </div>
 
         {/* Customer & Invoice Info */}
-        <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm p-5">
-          <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+        <div className="border border-slate-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 shadow-sm p-5">
+          <h3 className="text-sm font-semibold text-slate-600 dark:text-zinc-400 uppercase tracking-wide mb-4 flex items-center gap-2">
             <FileText className="h-4 w-4 text-blue-600 dark:text-blue-400" /> Invoice Details
           </h3>
           <div className="space-y-3">
@@ -224,13 +224,13 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
 
       {/* Line Items */}
       {items.length > 0 && (
-        <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
-          <div className="p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
-            <h3 className="font-semibold text-slate-900 dark:text-slate-100">Line Items ({items.length})</h3>
+        <div className="border border-slate-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">
+          <div className="p-5 border-b border-slate-200 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-800/40">
+            <h3 className="font-semibold text-slate-900 dark:text-zinc-100">Line Items ({items.length})</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 text-xs uppercase font-semibold">
+              <thead className="bg-slate-50 dark:bg-zinc-800/60 text-slate-600 dark:text-zinc-300 text-xs uppercase font-semibold">
                 <tr>
                   <th className="px-4 py-3 text-left">#</th>
                   <th className="px-4 py-3 text-left">Description</th>
@@ -240,15 +240,15 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
                   <th className="px-4 py-3 text-right">Amount</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-slate-100 dark:divide-zinc-800">
                 {items.map((item: any, i: number) => (
-                  <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
-                    <td className="px-4 py-3 text-slate-400 dark:text-slate-500">{i + 1}</td>
-                    <td className="px-4 py-3 font-medium text-slate-900 dark:text-slate-100">{item.name || item.description || "-"}</td>
-                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400 font-mono text-xs">{item.hsn_code || "-"}</td>
-                    <td className="px-4 py-3 text-right text-slate-700 dark:text-slate-300">{item.qty ?? "-"}</td>
-                    <td className="px-4 py-3 text-right text-slate-700 dark:text-slate-300">{item.rate != null ? formatCurrency(item.rate) : "-"}</td>
-                    <td className="px-4 py-3 text-right font-semibold text-slate-900 dark:text-slate-100">
+                  <tr key={i} className="hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition-colors">
+                    <td className="px-4 py-3 text-slate-400 dark:text-zinc-500">{i + 1}</td>
+                    <td className="px-4 py-3 font-medium text-slate-900 dark:text-zinc-100">{item.name || item.description || "-"}</td>
+                    <td className="px-4 py-3 text-slate-500 dark:text-zinc-400 font-mono text-xs">{item.hsn_code || "-"}</td>
+                    <td className="px-4 py-3 text-right text-slate-700 dark:text-zinc-300">{item.qty ?? "-"}</td>
+                    <td className="px-4 py-3 text-right text-slate-700 dark:text-zinc-300">{item.rate != null ? formatCurrency(item.rate) : "-"}</td>
+                    <td className="px-4 py-3 text-right font-semibold text-slate-900 dark:text-zinc-100">
                       {formatCurrency(item.price || item.amount)}
                     </td>
                   </tr>
@@ -260,8 +260,8 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
       )}
 
       {/* Amounts */}
-      <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm p-5">
-        <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-4">
+      <div className="border border-slate-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 shadow-sm p-5">
+        <h3 className="text-sm font-semibold text-slate-600 dark:text-zinc-400 uppercase tracking-wide mb-4">
           Amounts & Tax Breakdown
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -289,8 +289,8 @@ function InfoRow({
 }) {
   return (
     <div className="flex justify-between items-center py-1">
-      <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{label}</span>
-      <span className={`text-sm font-semibold text-slate-900 dark:text-slate-100 ${mono ? "font-mono" : ""}`}>
+      <span className="text-sm font-medium text-slate-600 dark:text-zinc-400">{label}</span>
+      <span className={`text-sm font-semibold text-slate-900 dark:text-zinc-100 ${mono ? "font-mono" : ""}`}>
         {value || "-"}
       </span>
     </div>
@@ -315,11 +315,11 @@ function AmountBox({
       className={`p-3.5 rounded-lg transition-colors ${
         highlight
           ? "bg-blue-50/80 dark:bg-blue-950/40 border-2 border-blue-200 dark:border-blue-800"
-          : "bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800"
+          : "bg-slate-50 dark:bg-zinc-800/50 border border-slate-100 dark:border-zinc-800"
       }`}
     >
-      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</p>
-      <p className={`text-lg font-bold mt-0.5 ${highlight ? "text-blue-700 dark:text-blue-300" : "text-slate-900 dark:text-slate-100"}`}>{display}</p>
+      <p className="text-xs font-semibold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">{label}</p>
+      <p className={`text-lg font-bold mt-0.5 ${highlight ? "text-blue-700 dark:text-blue-300" : "text-slate-900 dark:text-zinc-100"}`}>{display}</p>
     </div>
   );
 }

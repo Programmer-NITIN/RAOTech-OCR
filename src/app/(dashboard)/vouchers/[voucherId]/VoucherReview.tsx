@@ -342,10 +342,10 @@ export default function VoucherReview({
       </div>
 
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
           {stage === "items" ? "Item Name Mapping" : "Ledger Mapping"}
         </h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <p className="text-slate-600 dark:text-zinc-400 text-sm mt-1">
           {stage === "items"
             ? "Review the extracted item names first, then continue to ledger mapping."
             : "Assign ledgers, approve, then download Tally XML."}
@@ -353,20 +353,20 @@ export default function VoucherReview({
       </div>
 
       {error && (
-        <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+        <div className="flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 p-3 text-sm text-red-700 dark:text-red-300">
           <AlertTriangle className="h-4 w-4" /> {error}
         </div>
       )}
 
       {inv.isDuplicate && (
-        <div className="rounded-lg bg-purple-50 border border-purple-200 p-3 text-sm text-purple-800">
+        <div className="rounded-lg bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 p-3 text-sm text-purple-800 dark:text-purple-300">
           Possible duplicate invoice detected (same number + vendor + amount).
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="border rounded-xl bg-white shadow-sm lg:sticky lg:top-20 self-start">
-          <div className="p-4 border-b bg-gray-50/50 font-semibold">Extracted Invoice</div>
+        <div className="border border-slate-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 shadow-sm lg:sticky lg:top-20 self-start">
+          <div className="p-4 border-b border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-800/60 font-semibold text-slate-900 dark:text-zinc-100">Extracted Invoice</div>
           <div className="p-4 space-y-2 text-sm">
             <Field label="Vendor" value={inv.vendor} />
             <Field label="Vendor GSTIN" value={inv.vendorGstin} />
@@ -381,17 +381,17 @@ export default function VoucherReview({
             {inv.ewayBillNo && <Field label="E-way Bill" value={inv.ewayBillNo} />}
           </div>
           {Array.isArray(inv.validationFlags) && inv.validationFlags.length > 0 && (
-            <div className="p-4 border-t space-y-1">
-              <p className="text-xs uppercase text-gray-400 mb-2">Validations</p>
+            <div className="p-4 border-t border-slate-200 dark:border-zinc-800 space-y-1">
+              <p className="text-xs uppercase font-semibold text-slate-500 dark:text-zinc-400 mb-2">Validations</p>
               {inv.validationFlags.slice(0, 8).map((issue: any, i: number) => (
                 <div
                   key={i}
-                  className={`text-xs rounded px-2 py-1 ${
+                  className={`text-xs rounded px-2 py-1 font-medium ${
                     issue.severity === "error"
-                      ? "bg-red-50 text-red-700"
+                      ? "bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-300"
                       : issue.severity === "warning"
-                        ? "bg-amber-50 text-amber-700"
-                        : "bg-slate-50 text-slate-600"
+                        ? "bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300"
+                        : "bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300"
                   }`}
                 >
                   {issue.message}
@@ -400,13 +400,13 @@ export default function VoucherReview({
             </div>
           )}
           {Array.isArray(inv.items) && inv.items.length > 0 && (
-            <div className="p-4 border-t">
-              <p className="text-xs uppercase text-gray-400 mb-2">Line items</p>
+            <div className="p-4 border-t border-slate-200 dark:border-zinc-800">
+              <p className="text-xs uppercase font-semibold text-slate-500 dark:text-zinc-400 mb-2">Line items</p>
               <div className="space-y-1 text-sm max-h-48 overflow-y-auto">
                 {inv.items.map((it: any, i: number) => (
                   <div key={i} className="flex justify-between gap-2">
-                    <span className="truncate text-gray-700">{it.name}</span>
-                    <span className="text-gray-500 shrink-0">{money(Number(it.price) || 0)}</span>
+                    <span className="truncate text-slate-800 dark:text-zinc-200 font-medium">{it.name}</span>
+                    <span className="text-slate-600 dark:text-zinc-400 shrink-0 font-medium">{money(Number(it.price) || 0)}</span>
                   </div>
                 ))}
               </div>
@@ -414,13 +414,13 @@ export default function VoucherReview({
           )}
         </div>
 
-        <div className="border rounded-xl bg-white shadow-sm">
+        <div className="border border-slate-200 dark:border-zinc-800 rounded-xl bg-white dark:bg-zinc-900 shadow-sm">
           {stage === "items" ? (
             <>
-              <div className="p-4 border-b bg-gray-50/50 flex items-center justify-between gap-2 flex-wrap">
+              <div className="p-4 border-b border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-800/60 flex items-center justify-between gap-2 flex-wrap">
                 <div>
-                  <span className="font-semibold">Item Name Mapping</span>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <span className="font-semibold text-slate-900 dark:text-zinc-100">Item Name Mapping</span>
+                  <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1">
                     Choose the item name for each extracted line, then continue to ledger mapping.
                   </p>
                 </div>
@@ -431,12 +431,12 @@ export default function VoucherReview({
 
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <thead className="text-gray-500 bg-gray-50 uppercase text-xs">
+                  <thead className="text-slate-600 dark:text-zinc-400 bg-slate-50 dark:bg-zinc-800/70 uppercase text-xs border-b border-slate-200 dark:border-zinc-800">
                     <tr>
-                      <th className="px-3 py-2 text-left">Item name</th>
-                      <th className="px-3 py-2 text-left">Select item name</th>
-                      <th className="px-3 py-2 text-right">Debit</th>
-                      <th className="px-3 py-2 text-right">Credit</th>
+                      <th className="px-3 py-2 text-left font-semibold">Item name</th>
+                      <th className="px-3 py-2 text-left font-semibold">Select item name</th>
+                      <th className="px-3 py-2 text-right font-semibold">Debit</th>
+                      <th className="px-3 py-2 text-right font-semibold">Credit</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -445,32 +445,32 @@ export default function VoucherReview({
                       const currentName = itemNames[index] || getItemLabel(item);
                       const amount = formatItemAmount(item);
                       return (
-                        <tr key={`${extractedName}-${index}`} className="border-b align-top">
+                        <tr key={`${extractedName}-${index}`} className="border-b border-slate-200 dark:border-zinc-800 align-top hover:bg-slate-50/50 dark:hover:bg-zinc-800/40">
                           <td className="px-3 py-2">
-                            <span className="font-medium text-gray-800">{extractedName}</span>
+                            <span className="font-semibold text-slate-900 dark:text-zinc-100">{extractedName}</span>
                           </td>
                           <td className="px-3 py-2">
                             <select
-                              className="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm outline-none focus:border-gray-400"
+                              className="w-full rounded-md border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-2 text-sm text-slate-900 dark:text-zinc-100 shadow-xs outline-none focus:border-blue-500"
                               value={currentName}
                               onChange={(e) => updateItemName(index, e.target.value)}
                               disabled={locked}
                             >
                               {itemNameOptions.map((name) => (
-                                <option key={name} value={name}>
+                                <option key={name} value={name} className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100">
                                   {name}
                                 </option>
                               ))}
                             </select>
                           </td>
-                          <td className="px-3 py-2 text-right font-medium">{amount ? money(amount) : ""}</td>
-                          <td className="px-3 py-2 text-right font-medium">{item.credit ? money(Number(item.credit)) : ""}</td>
+                          <td className="px-3 py-2 text-right font-semibold text-slate-900 dark:text-zinc-100">{amount ? money(amount) : ""}</td>
+                          <td className="px-3 py-2 text-right font-semibold text-slate-900 dark:text-zinc-100">{item.credit ? money(Number(item.credit)) : ""}</td>
                         </tr>
                       );
                     })}
                   </tbody>
                   <tfoot>
-                    <tr className="font-semibold bg-gray-50">
+                    <tr className="font-semibold bg-slate-50 dark:bg-zinc-800/70 text-slate-900 dark:text-zinc-100 border-t border-slate-200 dark:border-zinc-800">
                       <td className="px-3 py-2 text-right">Total</td>
                       <td className="px-3 py-2 text-right">{money(totalDebit)}</td>
                       <td className="px-3 py-2 text-right">{money(totalCredit)}</td>
@@ -478,15 +478,15 @@ export default function VoucherReview({
                   </tfoot>
                 </table>
               </div>
-              <div className="p-3 text-xs text-gray-500 border-t">
+              <div className="p-3 text-xs text-slate-600 dark:text-zinc-400 border-t border-slate-200 dark:border-zinc-800">
                 Saved item names will be written back to the invoice before the ledger mapping step.
               </div>
             </>
           ) : (
             <>
-              <div className="p-4 border-b bg-gray-50/50 flex items-center justify-between gap-2 flex-wrap">
-                <span className="font-semibold">Voucher</span>
-                <div className="flex rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden text-xs font-semibold shadow-xs">
+              <div className="p-4 border-b border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-800/60 flex items-center justify-between gap-2 flex-wrap">
+                <span className="font-semibold text-slate-900 dark:text-zinc-100">Voucher</span>
+                <div className="flex rounded-lg border border-slate-200 dark:border-zinc-700 overflow-hidden text-xs font-semibold shadow-xs">
                   {TYPES.map((t) => (
                     <button
                       key={t}
@@ -495,7 +495,7 @@ export default function VoucherReview({
                       className={`px-3 py-1.5 transition-colors ${
                         voucherType === t
                           ? "bg-slate-900 text-white dark:bg-blue-600 dark:text-white"
-                          : "bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                          : "bg-white text-slate-700 hover:bg-slate-100 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
                       }`}
                     >
                       {t.replace("_", " ")}
@@ -506,11 +506,11 @@ export default function VoucherReview({
 
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <thead className="text-gray-500 bg-gray-50 uppercase text-xs">
+                  <thead className="text-slate-600 dark:text-zinc-400 bg-slate-50 dark:bg-zinc-800/70 uppercase text-xs border-b border-slate-200 dark:border-zinc-800">
                     <tr>
-                      <th className="px-3 py-2 text-left">Ledger</th>
-                      <th className="px-3 py-2 text-right">Debit</th>
-                      <th className="px-3 py-2 text-right">Credit</th>
+                      <th className="px-3 py-2 text-left font-semibold">Ledger</th>
+                      <th className="px-3 py-2 text-right font-semibold">Debit</th>
+                      <th className="px-3 py-2 text-right font-semibold">Credit</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -525,13 +525,13 @@ export default function VoucherReview({
                         if (isFirstUnmapped) assignedUnmappedRef = true;
                         const itemLabel = l.role === "ITEM" ? itemNames[index] || getItemLabel(extractedItems[index] || {}) : null;
                         return (
-                          <tr key={l.id} className="border-b align-top">
+                          <tr key={l.id} className="border-b border-slate-200 dark:border-zinc-800 align-top hover:bg-slate-50/50 dark:hover:bg-zinc-800/40">
                             <td className="px-3 py-2">
                               <div className="flex items-center gap-2 mb-1">
-                                <span className="text-xs text-gray-400 w-14">{l.role}</span>
+                                <span className="text-xs font-semibold text-slate-500 dark:text-zinc-400 w-14">{l.role}</span>
                                 <ConfidenceChip line={l} />
                               </div>
-                              {itemLabel && <div className="text-xs text-gray-500 mb-1">{itemLabel}</div>}
+                              {itemLabel && <div className="text-xs text-slate-600 dark:text-zinc-300 mb-1 font-medium">{itemLabel}</div>}
                               {EDITABLE_ROLES.has(l.role) && !locked ? (
                                 <LedgerSelect
                                   ref={isFirstUnmapped ? firstUnmappedRef : undefined}
@@ -542,18 +542,18 @@ export default function VoucherReview({
                                   onCreated={(led) => setLedgers((prev) => [...prev, led])}
                                 />
                               ) : (
-                                <span className="text-gray-800">{l.ledgerNameSnapshot || "—"}</span>
+                                <span className="text-slate-900 dark:text-zinc-100 font-semibold">{l.ledgerNameSnapshot || "—"}</span>
                               )}
                             </td>
-                            <td className="px-3 py-2 text-right font-medium">{l.debit ? money(l.debit) : ""}</td>
-                            <td className="px-3 py-2 text-right font-medium">{l.credit ? money(l.credit) : ""}</td>
+                            <td className="px-3 py-2 text-right font-semibold text-slate-900 dark:text-zinc-100">{l.debit ? money(l.debit) : ""}</td>
+                            <td className="px-3 py-2 text-right font-semibold text-slate-900 dark:text-zinc-100">{l.credit ? money(l.credit) : ""}</td>
                           </tr>
                         );
                       });
                     })()}
                   </tbody>
                   <tfoot>
-                    <tr className="font-semibold bg-gray-50">
+                    <tr className="font-semibold bg-slate-50 dark:bg-zinc-800/70 text-slate-900 dark:text-zinc-100 border-t border-slate-200 dark:border-zinc-800">
                       <td className="px-3 py-2 text-right">Total</td>
                       <td className="px-3 py-2 text-right">{money(totalDebit)}</td>
                       <td className="px-3 py-2 text-right">{money(totalCredit)}</td>
@@ -561,13 +561,13 @@ export default function VoucherReview({
                   </tfoot>
                 </table>
               </div>
-              <div className="p-3 text-xs text-gray-500 border-t">
+              <div className="p-3 text-xs text-slate-600 dark:text-zinc-400 border-t border-slate-200 dark:border-zinc-800 font-medium">
                 {balanced ? (
-                  <span className="text-green-600">● Balanced</span>
+                  <span className="text-emerald-600 dark:text-emerald-400">● Balanced</span>
                 ) : (
-                  <span className="text-red-600">● Not balanced — difference {money(Math.abs(totalDebit - totalCredit))}</span>
+                  <span className="text-red-600 dark:text-red-400">● Not balanced — difference {money(Math.abs(totalDebit - totalCredit))}</span>
                 )}
-                {hasUnmapped && <span className="ml-3 text-red-600">● Assign all ledgers to send</span>}
+                {hasUnmapped && <span className="ml-3 text-red-600 dark:text-red-400">● Assign all ledgers to send</span>}
               </div>
             </>
           )}
@@ -604,8 +604,8 @@ export default function VoucherReview({
 function Field({ label, value }: { label: string; value: string | null | undefined }) {
   return (
     <div className="flex justify-between gap-3 text-sm">
-      <span className="text-slate-600 dark:text-slate-400 font-medium">{label}</span>
-      <span className="text-slate-900 dark:text-slate-100 font-semibold text-right truncate">{value || "—"}</span>
+      <span className="text-slate-600 dark:text-zinc-400 font-medium">{label}</span>
+      <span className="text-slate-900 dark:text-zinc-100 font-semibold text-right truncate">{value || "—"}</span>
     </div>
   );
 }
