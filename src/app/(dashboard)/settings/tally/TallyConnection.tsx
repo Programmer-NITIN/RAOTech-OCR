@@ -166,12 +166,12 @@ export default function TallyConnection({ clientName }: { clientName?: string })
         <div>
           <Link
             href="/settings"
-            className="mb-2 inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-800"
+            className="mb-2 inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Ledgers &amp; Rules
           </Link>
-          <h1 className="text-3xl font-bold tracking-tight">Tally Connection</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">Tally Connection</h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-zinc-400">
             {clientName ? `${clientName} · ` : ""}Pair the desktop connector, name the company in
             Tally, and check the gateway
           </p>
@@ -182,7 +182,7 @@ export default function TallyConnection({ clientName }: { clientName?: string })
       </div>
 
       {loading && !data ? (
-        <div className="rounded-xl border bg-white p-6 text-sm text-gray-500 shadow-sm">
+        <div className="rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 text-sm text-gray-500 dark:text-zinc-400 shadow-sm">
           <Loader2 className="mr-2 inline h-4 w-4 animate-spin" /> Reading the connection…
         </div>
       ) : (
@@ -316,19 +316,19 @@ function DeviceSection({
   const port = device?.tallyPort ?? summary?.tallyPort ?? 9000;
 
   return (
-    <section className="rounded-xl border bg-white shadow-sm">
-      <header className="flex flex-wrap items-center justify-between gap-2 border-b bg-gray-50/50 px-4 py-3">
+    <section className="rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">
+      <header className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 dark:border-zinc-800 bg-gray-50/50 dark:bg-zinc-800/40 px-4 py-3">
         <div className="flex items-center gap-2">
-          <Monitor className="h-4 w-4 text-gray-500" />
-          <h2 className="font-semibold">Connector device</h2>
+          <Monitor className="h-4 w-4 text-gray-500 dark:text-zinc-400" />
+          <h2 className="font-semibold text-slate-900 dark:text-zinc-100">Connector device</h2>
         </div>
         {device &&
           (connectorOnline ? (
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-1 text-xs font-bold text-emerald-700">
+            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 px-2 py-1 text-xs font-bold text-emerald-700 dark:text-emerald-300">
               <CheckCircle2 className="h-3 w-3" /> Online
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-1 text-xs font-bold text-amber-700">
+            <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 dark:bg-amber-950/60 px-2 py-1 text-xs font-bold text-amber-700 dark:text-amber-300">
               <PlugZap className="h-3 w-3" /> Offline
             </span>
           ))}
@@ -343,7 +343,7 @@ function DeviceSection({
             <Row label="Tally gateway" value={`${host}:${port}`} mono />
           </dl>
           <div className="flex flex-col items-start justify-between gap-3 md:items-end">
-            <p className="text-xs text-gray-500 md:text-right">
+            <p className="text-xs text-gray-500 dark:text-zinc-400 md:text-right">
               Revoking invalidates this machine&apos;s token. The desktop stops polling on its next
               request and has to be paired again; nothing already in Tally is affected.
             </p>
@@ -354,26 +354,26 @@ function DeviceSection({
         </div>
       ) : code ? (
         <div className="space-y-4 p-4">
-          <div className="rounded-xl border border-dashed bg-gray-50 px-4 py-6 text-center">
-            <p className="font-mono text-4xl font-bold tracking-[0.3em] text-gray-900">{code.code}</p>
-            <p className="mt-2 text-xs text-gray-500">
+          <div className="rounded-xl border border-dashed border-slate-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800/50 px-4 py-6 text-center">
+            <p className="font-mono text-4xl font-bold tracking-[0.3em] text-gray-900 dark:text-zinc-100">{code.code}</p>
+            <p className="mt-2 text-xs text-gray-500 dark:text-zinc-400">
               Expires in{" "}
-              <span className="font-medium text-gray-700">
+              <span className="font-medium text-gray-700 dark:text-zinc-300">
                 {Math.floor(secondsLeft / 60)}:{String(secondsLeft % 60).padStart(2, "0")}
               </span>
             </p>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-zinc-300">
             Open the Rao-Tech connector on the machine running Tally and enter this code. This page
             will switch over on its own the moment it is claimed.
           </p>
-          <p className="flex items-center gap-2 text-xs text-gray-400">
+          <p className="flex items-center gap-2 text-xs text-gray-400 dark:text-zinc-500">
             <Loader2 className="h-3.5 w-3.5 animate-spin" /> Waiting for the connector…
           </p>
         </div>
       ) : (
         <div className="space-y-3 p-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-zinc-300">
             No device is paired. Tally listens only on the accountant&apos;s own machine, so a small
             desktop connector runs there and polls this workspace for work — nothing dials in.
           </p>
@@ -407,10 +407,10 @@ function DeviceSection({
 /* ------------------------------------------------------------ company */
 
 const STATUS_TONE: Record<string, string> = {
-  READY: "bg-emerald-100 text-emerald-700",
-  SYNCING: "bg-amber-100 text-amber-700",
-  ERROR: "bg-red-100 text-red-700",
-  UNSYNCED: "bg-slate-100 text-slate-600",
+  READY: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300",
+  SYNCING: "bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300",
+  ERROR: "bg-red-100 text-red-700 dark:bg-red-950/60 dark:text-red-300",
+  UNSYNCED: "bg-slate-100 text-slate-600 dark:bg-zinc-800 dark:text-zinc-400",
 };
 
 function CompanySection({
@@ -467,9 +467,9 @@ function CompanySection({
   const dirty = touched.current && name.trim() !== (company?.companyName ?? "");
 
   return (
-    <section className="rounded-xl border bg-white shadow-sm">
-      <header className="flex flex-wrap items-center justify-between gap-2 border-b bg-gray-50/50 px-4 py-3">
-        <h2 className="font-semibold">Tally company</h2>
+    <section className="rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">
+      <header className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 dark:border-zinc-800 bg-gray-50/50 dark:bg-zinc-800/40 px-4 py-3">
+        <h2 className="font-semibold text-slate-900 dark:text-zinc-100">Tally company</h2>
         {company && (
           <span
             className={`rounded-full px-2 py-1 text-xs font-bold ${STATUS_TONE[company.status] ?? STATUS_TONE.UNSYNCED}`}
@@ -482,17 +482,18 @@ function CompanySection({
       <div className="space-y-4 p-4">
         <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
           <div className="space-y-1.5">
-            <Label htmlFor="tally-company">Company name, exactly as it appears in Tally</Label>
+            <Label htmlFor="tally-company" className="text-slate-700 dark:text-zinc-300">Company name, exactly as it appears in Tally</Label>
             <Input
               id="tally-company"
               value={name}
               placeholder="RAOTECH TRADERS"
+              className="dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-100 dark:placeholder-zinc-500"
               onChange={(e) => {
                 touched.current = true;
                 setName(e.target.value);
               }}
             />
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 dark:text-zinc-400">
               Tally addresses companies by name. A spelling that differs by so much as a double
               space is a different company as far as the import is concerned.
             </p>
@@ -504,7 +505,7 @@ function CompanySection({
         </div>
 
         {company && (
-          <dl className="grid gap-2 rounded-lg border bg-gray-50/60 p-3 text-sm sm:grid-cols-3">
+          <dl className="grid gap-2 rounded-lg border border-slate-200 dark:border-zinc-800 bg-gray-50/60 dark:bg-zinc-800/30 p-3 text-sm sm:grid-cols-3">
             <Row label="Ledgers" value={String(company.ledgerCount)} />
             <Row label="Last synced" value={relativeTime(company.lastSyncedAt)} />
             <Row
@@ -515,7 +516,7 @@ function CompanySection({
         )}
 
         {company?.educationMode && (
-          <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+          <div className="flex items-start gap-2 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/40 p-3 text-sm text-amber-900 dark:text-amber-300">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
             <p>
               Tally is running in education mode. It rejects imports with an <em>empty</em> reason,
@@ -527,7 +528,7 @@ function CompanySection({
         <div className="flex flex-wrap items-center gap-2">
           <Button
             size="sm"
-            className="bg-[#0b6b3a] hover:bg-[#0a5c32]"
+            className="bg-[#0b6b3a] hover:bg-[#0a5c32] text-white"
             disabled={!company || !paired || busy === "master"}
             onClick={onSyncMaster}
           >
@@ -538,7 +539,7 @@ function CompanySection({
             {busy === "test" ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wifi className="mr-2 h-4 w-4" />}
             Test Connection
           </Button>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-zinc-400">
             {paired
               ? "Both are queued for the connector; it answers on its next poll."
               : "Pair a device first — these run on the Tally machine, not here."}
@@ -546,7 +547,7 @@ function CompanySection({
         </div>
 
         {company?.status !== "READY" && (
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-zinc-400">
             Vouchers cannot be pushed until master data has been read at least once: Tally matches
             ledgers by name, and the workspace has to know the names it will be matched against.
           </p>
@@ -569,24 +570,24 @@ function Diagnostics({
   const port = device.tallyPort ?? 9000;
 
   return (
-    <section className="rounded-xl border bg-white shadow-sm">
-      <header className="border-b bg-gray-50/50 px-4 py-3">
-        <h2 className="font-semibold">Diagnostics</h2>
+    <section className="rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">
+      <header className="border-b border-slate-200 dark:border-zinc-800 bg-gray-50/50 dark:bg-zinc-800/40 px-4 py-3">
+        <h2 className="font-semibold text-slate-900 dark:text-zinc-100">Diagnostics</h2>
       </header>
       <div className="space-y-3 p-4 text-sm">
         <div className="flex items-start gap-2">
           {reachable ? (
-            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
           ) : (
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-600 dark:text-red-400" />
           )}
           <div className="min-w-0 flex-1">
-            <p className={reachable ? "font-medium text-emerald-800" : "font-medium text-red-800"}>
+            <p className={reachable ? "font-medium text-emerald-800 dark:text-emerald-300" : "font-medium text-red-800 dark:text-red-300"}>
               {reachable ? "Tally is answering" : "The connector cannot reach Tally"}
             </p>
             {device.tallyMessage && (
               // Verbatim. Whatever the desktop saw is more useful than our summary of it.
-              <pre className="mt-1 whitespace-pre-wrap break-words rounded-lg border bg-slate-50 p-2 font-mono text-xs text-slate-800">
+              <pre className="mt-1 whitespace-pre-wrap break-words rounded-lg border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-800/60 p-2 font-mono text-xs text-slate-800 dark:text-zinc-200">
                 {device.tallyMessage}
               </pre>
             )}
@@ -594,7 +595,7 @@ function Diagnostics({
         </div>
 
         {!reachable && (
-          <div className="space-y-2 rounded-lg border border-red-200 bg-red-50 p-3 text-red-900">
+          <div className="space-y-2 rounded-lg border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/40 p-3 text-red-900 dark:text-red-300">
             <p className="font-semibold">On the Tally machine</p>
             <ol className="list-decimal space-y-1 pl-5">
               <li>
@@ -622,7 +623,7 @@ function Diagnostics({
         )}
 
         {educationMode && (
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-zinc-400">
             Education mode is also reported here because its rejections come back blank; if a push
             fails with no reason at all, check the licence first.
           </p>
@@ -635,8 +636,8 @@ function Diagnostics({
 function Row({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex justify-between gap-3">
-      <dt className="text-gray-400">{label}</dt>
-      <dd className={`text-right text-gray-900 ${mono ? "font-mono text-xs" : ""}`}>{value}</dd>
+      <dt className="text-gray-400 dark:text-zinc-400">{label}</dt>
+      <dd className={`text-right text-gray-900 dark:text-zinc-100 ${mono ? "font-mono text-xs" : ""}`}>{value}</dd>
     </div>
   );
 }

@@ -428,15 +428,15 @@ export default function TransactionsList({
       )}
 
       {blocked && (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-4">
+        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-red-300 dark:bg-red-950/30">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
-              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-red-400" />
               <div>
-                <h3 className="font-semibold text-red-900">
+                <h3 className="font-semibold text-red-200">
                   Tally would reject this export
                 </h3>
-                <p className="mt-0.5 text-sm text-red-800">
+                <p className="mt-0.5 text-sm text-red-300/80">
                   Fixed here, these never become an error buried in Tally.imp. Errors block
                   the export; warnings do not.
                 </p>
@@ -446,7 +446,7 @@ export default function TransactionsList({
               type="button"
               aria-label="Dismiss"
               onClick={() => setBlocked(null)}
-              className="rounded p-1 text-red-500 hover:bg-red-100"
+              className="rounded p-1 text-red-400 hover:bg-red-500/20"
             >
               <X className="h-4 w-4" />
             </button>
@@ -458,13 +458,13 @@ export default function TransactionsList({
               return (
                 <li
                   key={`${issue.voucherId}-${issue.code}-${i}`}
-                  className="flex flex-wrap items-baseline gap-x-2 gap-y-1 rounded-lg bg-white px-3 py-2 text-sm"
+                  className="flex flex-wrap items-baseline gap-x-2 gap-y-1 rounded-lg border border-[var(--spx-border)] bg-[var(--spx-card)] px-3 py-2 text-sm text-[var(--spx-text)]"
                 >
                   <span
                     className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${
                       issue.severity === "error"
-                        ? "bg-red-100 text-red-700"
-                        : "bg-amber-100 text-amber-700"
+                        ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                        : "bg-amber-500/20 text-amber-400 border border-amber-500/30"
                     }`}
                   >
                     {issue.severity}
@@ -472,18 +472,18 @@ export default function TransactionsList({
                   {v ? (
                     <Link
                       href={`/vouchers/${v.id}`}
-                      className="font-medium text-blue-600 hover:underline"
+                      className="font-medium text-emerald-400 hover:underline"
                     >
                       {v.vendor} · {v.invoiceNumber}
                     </Link>
                   ) : (
                     issue.voucherId && (
-                      <span className="font-medium text-gray-700">
+                      <span className="font-medium text-[var(--spx-muted)]">
                         {issue.voucherId.slice(0, 8)}
                       </span>
                     )
                   )}
-                  <span className="text-gray-700">{issue.message}</span>
+                  <span className="text-[var(--spx-muted)]">{issue.message}</span>
                 </li>
               );
             })}
@@ -503,7 +503,7 @@ export default function TransactionsList({
           }}
           className={`px-4 py-2 rounded-lg text-sm font-medium border transition ${
             tab === "invoices"
-              ? "bg-white text-black border-white"
+              ? "bg-zinc-900 text-zinc-100 border-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:border-zinc-100"
               : "bg-[var(--spx-input-bg)] text-[var(--spx-muted)] border-[var(--spx-border)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]"
           }`}
         >
@@ -521,7 +521,7 @@ export default function TransactionsList({
           }}
           className={`px-4 py-2 rounded-lg text-sm font-medium border transition ${
             tab === "bank"
-              ? "bg-white text-black border-white"
+              ? "bg-zinc-900 text-zinc-100 border-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:border-zinc-100"
               : "bg-[var(--spx-input-bg)] text-[var(--spx-muted)] border-[var(--spx-border)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]"
           }`}
         >
@@ -543,8 +543,8 @@ export default function TransactionsList({
                 }}
                 className={`px-3 py-2 rounded-lg text-xs font-medium border transition ${
                   filter === f
-                    ? "bg-gray-300 text-gray-900 border-gray-400"
-                    : "bg-[var(--spx-input-bg)] text-[var(--spx-muted)] border-[var(--spx-border)] hover:text-[var(--spx-text)]"
+                    ? "bg-zinc-800 text-zinc-100 border-zinc-700 dark:bg-zinc-200 dark:text-zinc-900 dark:border-zinc-300 font-semibold"
+                    : "bg-[var(--spx-input-bg)] text-[var(--spx-muted)] border-[var(--spx-border)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]"
                 }`}
               >
                 {f === "all"
@@ -556,7 +556,11 @@ export default function TransactionsList({
             ))}
             <button
               onClick={() => setHideSynced((v) => !v)}
-              className={`px-3 py-2 rounded-lg text-xs font-medium ${hideSynced ? "bg-emerald-600 text-white" : "bg-white border text-gray-500"}`}
+              className={`px-3 py-2 rounded-lg text-xs font-medium border transition ${
+                hideSynced
+                  ? "bg-emerald-600 text-white border-emerald-500"
+                  : "bg-[var(--spx-input-bg)] text-[var(--spx-muted)] border-[var(--spx-border)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]"
+              }`}
             >
               Hide Tally Synced
             </button>
@@ -565,7 +569,11 @@ export default function TransactionsList({
                 setFailedOnly((v) => !v);
                 setStuckOnly(false);
               }}
-              className={`px-3 py-2 rounded-lg text-xs font-medium ${failedOnly ? "bg-red-600 text-white" : "bg-white border text-gray-500"}`}
+              className={`px-3 py-2 rounded-lg text-xs font-medium border transition ${
+                failedOnly
+                  ? "bg-red-600 text-white border-red-500"
+                  : "bg-[var(--spx-input-bg)] text-[var(--spx-muted)] border-[var(--spx-border)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]"
+              }`}
             >
               Failed Records Only
             </button>
@@ -575,7 +583,11 @@ export default function TransactionsList({
                 setFailedOnly(false);
               }}
               title="Sent to a connector more than ten minutes ago with no result reported back"
-              className={`px-3 py-2 rounded-lg text-xs font-medium ${stuckOnly ? "bg-amber-500 text-white" : "bg-white border text-gray-500"}`}
+              className={`px-3 py-2 rounded-lg text-xs font-medium border transition ${
+                stuckOnly
+                  ? "bg-amber-500 text-white border-amber-400"
+                  : "bg-[var(--spx-input-bg)] text-[var(--spx-muted)] border-[var(--spx-border)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]"
+              }`}
             >
               Stuck Sending
             </button>
@@ -858,10 +870,10 @@ function PreflightPanel({
         : "ok";
 
   const box = {
-    bad: "border-red-200 bg-red-50",
-    warn: "border-amber-200 bg-amber-50",
-    info: "border-sky-200 bg-sky-50",
-    ok: "border-emerald-200 bg-emerald-50",
+    bad: "border-red-500/30 bg-red-500/10 text-red-300 dark:bg-red-950/30",
+    warn: "border-amber-500/30 bg-amber-500/10 text-amber-300 dark:bg-amber-950/30",
+    info: "border-sky-500/30 bg-sky-500/10 text-sky-300 dark:bg-sky-950/30",
+    ok: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300 dark:bg-emerald-950/30",
   }[tone];
 
   const headline = !result.ready
@@ -876,16 +888,16 @@ function PreflightPanel({
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-2">
           {tone === "bad" ? (
-            <AlertTriangle className="mt-0.5 size-4 shrink-0 text-red-600" />
+            <AlertTriangle className="mt-0.5 size-4 shrink-0 text-red-400" />
           ) : tone === "ok" ? (
-            <CheckSquare className="mt-0.5 size-4 shrink-0 text-emerald-600" />
+            <CheckSquare className="mt-0.5 size-4 shrink-0 text-emerald-400" />
           ) : (
-            <AlertTriangle className="mt-0.5 size-4 shrink-0 text-amber-600" />
+            <AlertTriangle className="mt-0.5 size-4 shrink-0 text-amber-400" />
           )}
           <div>
-            <p className="font-medium text-gray-900">{headline}</p>
+            <p className="font-medium text-[var(--spx-text)]">{headline}</p>
 
-            <ul className="mt-1 space-y-0.5 text-xs text-gray-600">
+            <ul className="mt-1 space-y-0.5 text-xs text-[var(--spx-muted)]">
               {result.notPushable ? (
                 <li>
                   {result.notPushable} of the rows you picked are not approved and were left out.
@@ -935,14 +947,14 @@ function PreflightPanel({
 
         <div className="flex shrink-0 items-center gap-2">
           {result.fix && (
-            <Link href={result.fix.href} className="text-xs font-medium underline">
+            <Link href={result.fix.href} className="text-xs font-medium underline text-emerald-400">
               {result.fix.label}
             </Link>
           )}
           {result.issues.length > 0 && (
             <button
               onClick={() => setOpen((v) => !v)}
-              className="text-xs font-medium text-gray-600 underline"
+              className="text-xs font-medium text-[var(--spx-muted)] hover:text-[var(--spx-text)] underline"
             >
               {open ? "Hide" : `Show ${result.issues.length}`}
             </button>

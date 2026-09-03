@@ -315,19 +315,19 @@ export default function BankMapping({
   const bankLedgerMissing = !!data && !header?.bankLedgerId;
 
   return (
-    <div className="relative min-h-screen space-y-5 p-6 md:p-10">
+    <div className="relative min-h-screen bg-[var(--spx-canvas)] text-[var(--spx-text)] space-y-5 p-6 md:p-10">
       <div className="flex items-center justify-between">
-        <Button variant="outline" onClick={() => router.push("/transactions")}>
+        <Button variant="outline" onClick={() => router.push("/transactions")} className="bg-[var(--spx-input-bg)] border-[var(--spx-border)] text-[var(--spx-text-secondary)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]">
           <ArrowLeft className="mr-2 h-4 w-4" /> Transactions
         </Button>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => setRulesOpen(true)}>
+          <Button variant="outline" onClick={() => setRulesOpen(true)} className="bg-[var(--spx-input-bg)] border-[var(--spx-border)] text-[var(--spx-text-secondary)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]">
             <Settings2 className="mr-2 h-4 w-4" /> Rules
           </Button>
-          <Button variant="outline" disabled={busy || !selectedIds.length} onClick={saveSelected}>
+          <Button variant="outline" disabled={busy || !selectedIds.length} onClick={saveSelected} className="bg-[var(--spx-input-bg)] border-[var(--spx-border)] text-[var(--spx-text-secondary)] hover:bg-[var(--spx-card-hover)] hover:text-[var(--spx-text)]">
             <Save className="mr-2 h-4 w-4" /> Save {selectedIds.length || ""}
           </Button>
-          <Button disabled={busy || bankLedgerMissing} onClick={buildAndPush}>
+          <Button disabled={busy || bankLedgerMissing} onClick={buildAndPush} className="bg-white text-black hover:bg-zinc-200 font-medium">
             <Send className="mr-2 h-4 w-4" />
             {selectedIds.length ? `Send ${selectedIds.length} to Tally` : "Send saved rows to Tally"}
           </Button>
@@ -335,14 +335,14 @@ export default function BankMapping({
       </div>
 
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50">
-          <Landmark className="h-5 w-5 text-amber-600" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-amber-500/20 bg-amber-500/10">
+          <Landmark className="h-5 w-5 text-amber-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
+          <h1 className="text-2xl font-bold tracking-tight text-[var(--spx-text)]">
             {header?.bankName || statement.bankName || "Bank Statement"}
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-[var(--spx-muted)]">
             {(header?.accountNumber || statement.accountNumber)
               ? `A/C ${header?.accountNumber ?? statement.accountNumber} • `
               : ""}
@@ -354,12 +354,14 @@ export default function BankMapping({
       {/* The bank side of every voucher this statement will produce. Bound once,
           here, because it is a property of the account and not of a row. */}
       <div
-        className={`flex flex-wrap items-center gap-3 rounded-xl border p-3 ${
-          bankLedgerMissing ? "border-red-300 bg-red-50" : "bg-white"
+        className={`flex flex-wrap items-center gap-3 rounded-xl border p-4 ${
+          bankLedgerMissing
+            ? "border-red-500/30 bg-red-500/10 text-red-300 dark:bg-red-950/30"
+            : "border-[var(--spx-border)] bg-[var(--spx-card)] shadow-xl"
         }`}
       >
         <div className="min-w-[220px] flex-1">
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--spx-muted)]">
             Bank account in Tally
           </p>
           <LedgerSelect
@@ -374,7 +376,7 @@ export default function BankMapping({
           />
         </div>
         {bankLedgerMissing && (
-          <p className="max-w-xl text-sm text-red-800">
+          <p className="max-w-xl text-sm text-red-300">
             Every Payment, Receipt and Contra needs the bank account itself on one side, and a
             statement row only shows the other side. Nothing can be sent to Tally until this is
             set. Mapping rows in the meantime is fine — the ledgers you choose are kept.
@@ -386,16 +388,16 @@ export default function BankMapping({
 
       {/* Filters. They compose — this is what makes "every blank row under ₹500
           whose narration says UPI" a single selection instead of three passes. */}
-      <div className="space-y-3 rounded-xl border bg-white p-3">
+      <div className="space-y-3 rounded-xl border border-[var(--spx-border)] bg-[var(--spx-card)] p-4 shadow-xl">
         <div className="flex flex-wrap items-center gap-2">
           <div className="relative min-w-[260px] flex-1">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-[var(--spx-muted)]" />
             <input
               value={queryDraft}
               onChange={(e) => setQueryDraft(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && submitSearch()}
               placeholder="Search narration — then select all and map them in one go"
-              className="w-full rounded-md border border-gray-300 py-2 pl-8 pr-3 text-sm outline-none focus:ring-1 focus:ring-blue-400"
+              className="w-full rounded-md border border-[var(--spx-border)] bg-[var(--spx-input-bg)] text-[var(--spx-text)] placeholder:text-[var(--spx-muted)] py-2 pl-8 pr-3 text-sm outline-none focus:border-[var(--spx-muted)]"
             />
           </div>
           <Button variant="outline" size="sm" onClick={submitSearch}>
@@ -449,8 +451,8 @@ export default function BankMapping({
                     types: on ? f.types.filter((t) => t !== c) : [...f.types, c],
                   }));
                 }}
-                className={`rounded-full border px-2.5 py-1 text-xs font-medium ${
-                  on ? "border-blue-400 bg-blue-50 text-blue-700" : "border-gray-200 text-gray-600"
+                className={`rounded-full border px-2.5 py-1 text-xs font-medium transition ${
+                  on ? "border-emerald-500/30 bg-emerald-500/20 text-emerald-300" : "border-[var(--spx-border)] bg-[var(--spx-input-bg)] text-[var(--spx-muted)] hover:text-[var(--spx-text)]"
                 }`}
               >
                 {c[0] + c.slice(1).toLowerCase()}
@@ -460,13 +462,13 @@ export default function BankMapping({
         </div>
 
         {showFilters && (
-          <div className="flex flex-wrap items-end gap-3 border-t pt-3">
+          <div className="flex flex-wrap items-end gap-3 border-t border-[var(--spx-border)] pt-3">
             <Field label="From">
               <input
                 type="date"
                 value={filters.from}
                 onChange={(e) => setFilters((f) => ({ ...f, from: e.target.value }))}
-                className="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
+                className="rounded-md border border-[var(--spx-border)] bg-[var(--spx-input-bg)] text-[var(--spx-text)] px-2 py-1.5 text-sm outline-none"
               />
             </Field>
             <Field label="To">
@@ -474,7 +476,7 @@ export default function BankMapping({
                 type="date"
                 value={filters.to}
                 onChange={(e) => setFilters((f) => ({ ...f, to: e.target.value }))}
-                className="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
+                className="rounded-md border border-[var(--spx-border)] bg-[var(--spx-input-bg)] text-[var(--spx-text)] px-2 py-1.5 text-sm outline-none"
               />
             </Field>
             <Field label="Amount at least">
@@ -482,7 +484,7 @@ export default function BankMapping({
                 inputMode="decimal"
                 value={filters.min}
                 onChange={(e) => setFilters((f) => ({ ...f, min: e.target.value }))}
-                className="w-28 rounded-md border border-gray-300 px-2 py-1.5 text-sm"
+                className="w-28 rounded-md border border-[var(--spx-border)] bg-[var(--spx-input-bg)] text-[var(--spx-text)] px-2 py-1.5 text-sm outline-none"
               />
             </Field>
             <Field label="Amount at most">
@@ -490,15 +492,15 @@ export default function BankMapping({
                 inputMode="decimal"
                 value={filters.max}
                 onChange={(e) => setFilters((f) => ({ ...f, max: e.target.value }))}
-                className="w-28 rounded-md border border-gray-300 px-2 py-1.5 text-sm"
+                className="w-28 rounded-md border border-[var(--spx-border)] bg-[var(--spx-input-bg)] text-[var(--spx-text)] px-2 py-1.5 text-sm outline-none"
               />
             </Field>
           </div>
         )}
 
         {/* Bulk assignment. This is the whole point of the filters above it. */}
-        <div className="flex flex-wrap items-center gap-2 rounded-lg border bg-slate-50 p-2">
-          <span className="text-sm text-slate-600">
+        <div className="flex flex-wrap items-center gap-2 rounded-lg border border-[var(--spx-border)] bg-[var(--spx-input-bg)] p-3">
+          <span className="text-sm text-[var(--spx-muted)]">
             {selectedIds.length
               ? `${selectedIds.length} row(s) selected`
               : "Select rows to map them together"}
@@ -519,16 +521,17 @@ export default function BankMapping({
             size="sm"
             disabled={busy || !bulkLedgerId || !selectedIds.length}
             onClick={applyBulkLedger}
+            className="bg-white text-black hover:bg-zinc-200 font-medium"
           >
             Apply to {selectedIds.length || 0}
           </Button>
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-xl border bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-[var(--spx-border)] bg-[var(--spx-card)] shadow-xl">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <table className="w-full text-sm text-left">
+            <thead className="bg-[var(--spx-input-bg)] text-xs uppercase text-[var(--spx-muted)] border-b border-[var(--spx-border)]">
               <tr>
                 <th className="w-10 px-3 py-2">
                   <input
@@ -536,6 +539,7 @@ export default function BankMapping({
                     aria-label="Select every visible row"
                     checked={allVisibleSelected}
                     onChange={toggleAll}
+                    className="rounded border-zinc-700 bg-zinc-900"
                   />
                 </th>
                 <th className="px-3 py-2 text-left">Date</th>
@@ -556,7 +560,7 @@ export default function BankMapping({
                     ref={(el) => {
                       rowRefs.current[t.id] = el;
                     }}
-                    className={`border-b align-top ${selected.has(t.id) ? "bg-blue-50/40" : "hover:bg-gray-50/50"}`}
+                    className={`border-b border-[var(--spx-border)] align-top ${selected.has(t.id) ? "bg-zinc-800/60" : "hover:bg-[var(--spx-card-hover)]"}`}
                   >
                     <td className="px-3 py-2">
                       <input
@@ -564,6 +568,7 @@ export default function BankMapping({
                         aria-label="Select row"
                         checked={selected.has(t.id)}
                         onChange={() => toggleOne(t.id)}
+                        className="rounded border-zinc-700 bg-zinc-900"
                       />
                     </td>
                     <td className="px-3 py-2">
@@ -577,7 +582,7 @@ export default function BankMapping({
                             editRow(t.id, { date: new Date(`${next}T00:00:00`).toISOString() });
                           }
                         }}
-                        className="w-[130px] rounded border border-transparent px-1 py-1 text-gray-700 hover:border-gray-300 focus:border-blue-400 focus:outline-none disabled:bg-transparent"
+                        className="w-[130px] rounded border border-transparent px-1 py-1 text-[var(--spx-text)] bg-transparent hover:border-[var(--spx-border)] focus:border-[var(--spx-muted)] focus:outline-none disabled:opacity-50"
                       />
                     </td>
                     <td className="px-3 py-2">
@@ -590,9 +595,9 @@ export default function BankMapping({
                             editRow(t.id, { description: next });
                           }
                         }}
-                        className="w-full min-w-[220px] rounded border border-transparent px-1 py-1 text-gray-800 hover:border-gray-300 focus:border-blue-400 focus:outline-none disabled:bg-transparent"
+                        className="w-full min-w-[220px] rounded border border-transparent px-1 py-1 text-[var(--spx-text)] bg-transparent hover:border-[var(--spx-border)] focus:border-[var(--spx-muted)] focus:outline-none disabled:opacity-50"
                       />
-                      {t.refNo && <div className="px-1 text-xs text-gray-400">Ref: {t.refNo}</div>}
+                      {t.refNo && <div className="px-1 text-xs text-[var(--spx-muted)]">Ref: {t.refNo}</div>}
                     </td>
                     <td className="px-3 py-2">
                       {/* Contra never appears on its own — a transfer between the
@@ -605,7 +610,7 @@ export default function BankMapping({
                           const next = e.target.value;
                           if (next) setClass(t.id, next as "PAYMENT" | "RECEIPT" | "CONTRA");
                         }}
-                        className="rounded border border-gray-200 px-1.5 py-1 text-xs"
+                        className="rounded border border-[var(--spx-border)] bg-[var(--spx-input-bg)] text-[var(--spx-text)] px-1.5 py-1 text-xs outline-none"
                       >
                         <option value="">Auto</option>
                         {CLASSES.map((c) => (
@@ -615,10 +620,10 @@ export default function BankMapping({
                         ))}
                       </select>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-2 text-right font-medium text-red-600">
+                    <td className="whitespace-nowrap px-3 py-2 text-right font-medium text-red-400">
                       {t.withdrawal ? money(t.withdrawal) : ""}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-2 text-right font-medium text-green-600">
+                    <td className="whitespace-nowrap px-3 py-2 text-right font-medium text-emerald-400">
                       {t.deposit ? money(t.deposit) : ""}
                     </td>
                     <td className="px-3 py-2">
@@ -626,10 +631,10 @@ export default function BankMapping({
                         <div className="space-y-0.5 text-xs">
                           {t.allocations.map((a, i) => (
                             <div key={`${t.id}-alloc-${i}`} className="flex justify-between gap-2">
-                              <span className="truncate text-gray-700">
+                              <span className="truncate text-[var(--spx-text)]">
                                 {a.ledgerName ?? "—"}
                               </span>
-                              <span className="shrink-0 text-gray-500">{money(a.amount)}</span>
+                              <span className="shrink-0 text-[var(--spx-muted)]">{money(a.amount)}</span>
                             </div>
                           ))}
                         </div>
@@ -647,7 +652,7 @@ export default function BankMapping({
                         <button
                           type="button"
                           onClick={() => setSplitFor(t)}
-                          className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700"
+                          className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-emerald-400 hover:text-emerald-300"
                         >
                           <Split className="h-3 w-3" />
                           {t.allocations.length > 1 ? "Edit split" : "Split"}
@@ -670,7 +675,7 @@ export default function BankMapping({
               })}
               {!rows.length && (
                 <tr>
-                  <td colSpan={8} className="px-3 py-10 text-center text-gray-400">
+                  <td colSpan={8} className="px-3 py-10 text-center text-[var(--spx-muted)]">
                     {loading ? (
                       <Loader2 className="mx-auto h-5 w-5 animate-spin" />
                     ) : filtersAreEmpty(filters) ? (
@@ -685,13 +690,13 @@ export default function BankMapping({
           </table>
         </div>
         {counts && (
-          <div className="flex flex-wrap gap-4 border-t p-3 text-xs text-gray-500">
+          <div className="flex flex-wrap gap-4 border-t border-[var(--spx-border)] bg-[var(--spx-card)] p-3 text-xs text-[var(--spx-muted)]">
             <span>{counts.blank} blank</span>
             <span>{counts.unsaved} unsaved</span>
             <span>{counts.saved} saved, ready to send</span>
-            <span className="text-emerald-600">{counts.pushed} in Tally</span>
+            <span className="text-emerald-400 font-medium">{counts.pushed} in Tally</span>
             {counts.failed > 0 && (
-              <span className="text-red-600">{counts.failed} rejected by Tally</span>
+              <span className="text-red-400 font-medium">{counts.failed} rejected by Tally</span>
             )}
           </div>
         )}
