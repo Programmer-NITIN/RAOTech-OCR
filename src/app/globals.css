@@ -240,15 +240,17 @@
     @apply bg-background text-foreground;
   }
   select {
-    @apply bg-card text-card-foreground border-border;
+    @apply bg-card text-card-foreground border border-border rounded-lg px-3 py-2 text-sm shadow-xs transition-all outline-none focus:border-ring focus:ring-1 focus:ring-ring;
   }
   select option {
-    @apply bg-card text-card-foreground;
+    @apply bg-card text-card-foreground py-1;
   }
+  .dark select,
   .dark select option {
     background-color: #161920;
     color: #e8e8ed;
   }
+  .light select,
   .light select option {
     background-color: #ffffff;
     color: #111827;

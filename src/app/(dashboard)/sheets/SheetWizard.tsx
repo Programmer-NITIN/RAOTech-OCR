@@ -244,12 +244,12 @@ export default function SheetWizard({
           return (
             <li
               key={s.id}
-              className={`rounded-md border px-3 py-1.5 ${
+              className={`rounded-lg border px-3.5 py-1.5 text-sm font-medium transition-all shadow-xs ${
                 active
-                  ? "border-foreground/30 bg-foreground/5 font-medium"
+                  ? "border-primary bg-primary text-primary-foreground font-semibold shadow-sm"
                   : done
-                    ? "border-emerald-500/30 text-emerald-600"
-                    : "border-border text-muted-foreground"
+                    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                    : "border-border bg-card/80 text-muted-foreground hover:bg-card hover:text-foreground"
               }`}
             >
               {i + 1}. {s.label}
@@ -266,13 +266,13 @@ export default function SheetWizard({
       )}
 
       {step === "upload" && (
-        <section className="space-y-6 rounded-lg border p-6">
+        <section className="space-y-6 rounded-xl border border-border bg-card p-6 shadow-sm">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <Label htmlFor="docType">Document type</Label>
               <select
                 id="docType"
-                className="mt-1.5 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
+                className="mt-1.5 w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground shadow-xs transition-all outline-none focus:border-ring focus:ring-1 focus:ring-ring"
                 value={docType}
                 onChange={(e) => setDocType(e.target.value as ExcelDocType)}
               >
@@ -287,7 +287,7 @@ export default function SheetWizard({
               <Label htmlFor="itemMode">Does the sheet have item detail?</Label>
               <select
                 id="itemMode"
-                className="mt-1.5 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
+                className="mt-1.5 w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground shadow-xs transition-all outline-none focus:border-ring focus:ring-1 focus:ring-ring"
                 value={itemMode}
                 onChange={(e) => setItemMode(e.target.value as ItemMode)}
               >
