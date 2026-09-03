@@ -486,13 +486,17 @@ export default function VoucherReview({
             <>
               <div className="p-4 border-b bg-gray-50/50 flex items-center justify-between gap-2 flex-wrap">
                 <span className="font-semibold">Voucher</span>
-                <div className="flex rounded-lg border overflow-hidden text-xs">
+                <div className="flex rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden text-xs font-semibold shadow-xs">
                   {TYPES.map((t) => (
                     <button
                       key={t}
                       onClick={() => changeType(t)}
                       disabled={saving || locked}
-                      className={`px-2 py-1.5 ${voucherType === t ? "bg-gray-900 text-white" : "bg-white text-gray-600 hover:bg-gray-50"}`}
+                      className={`px-3 py-1.5 transition-colors ${
+                        voucherType === t
+                          ? "bg-slate-900 text-white dark:bg-blue-600 dark:text-white"
+                          : "bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                      }`}
                     >
                       {t.replace("_", " ")}
                     </button>
@@ -599,9 +603,9 @@ export default function VoucherReview({
 
 function Field({ label, value }: { label: string; value: string | null | undefined }) {
   return (
-    <div className="flex justify-between gap-3">
-      <span className="text-gray-400">{label}</span>
-      <span className="text-gray-900 text-right truncate">{value || "—"}</span>
+    <div className="flex justify-between gap-3 text-sm">
+      <span className="text-slate-600 dark:text-slate-400 font-medium">{label}</span>
+      <span className="text-slate-900 dark:text-slate-100 font-semibold text-right truncate">{value || "—"}</span>
     </div>
   );
 }

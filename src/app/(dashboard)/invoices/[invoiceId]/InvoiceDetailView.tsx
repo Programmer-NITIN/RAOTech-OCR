@@ -96,19 +96,19 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
   };
 
   return (
-    <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-6">
+    <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-6 text-slate-900 dark:text-slate-100">
       {/* Header */}
       <div className="flex flex-wrap justify-between items-center gap-4">
         <div className="flex items-center gap-3">
-          <Button variant="outline" size="sm" onClick={() => router.back()}>
+          <Button variant="outline" size="sm" onClick={() => router.back()} className="dark:border-slate-700 dark:hover:bg-slate-800">
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
-            <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-              <FileText className="h-6 w-6 text-blue-600" />
+            <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2 text-slate-900 dark:text-slate-100">
+              <FileText className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               {invoice.invoiceNumber || "Untitled Invoice"}
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Created {new Date(invoice.createdAt).toLocaleDateString("en-IN")}
             </p>
           </div>
@@ -117,13 +117,13 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
         <div className="flex gap-2">
           {!isEditing ? (
             <>
-              <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
+              <Button variant="outline" size="sm" onClick={() => setIsEditing(true)} className="dark:border-slate-700 dark:hover:bg-slate-800">
                 <Pencil className="mr-1 h-4 w-4" /> Edit
               </Button>
               <Button
                 variant="outline"
                 size="sm"
-                className="text-red-600 hover:bg-red-50"
+                className="text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30 dark:border-slate-700"
                 onClick={handleDelete}
                 disabled={deleting}
               >
@@ -133,10 +133,10 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
             </>
           ) : (
             <>
-              <Button variant="outline" size="sm" onClick={() => setIsEditing(false)}>
+              <Button variant="outline" size="sm" onClick={() => setIsEditing(false)} className="dark:border-slate-700 dark:hover:bg-slate-800">
                 Cancel
               </Button>
-              <Button size="sm" onClick={handleSave} disabled={saving} className="bg-green-600 hover:bg-green-700">
+              <Button size="sm" onClick={handleSave} disabled={saving} className="bg-green-600 hover:bg-green-700 text-white">
                 {saving ? <Loader2 className="animate-spin mr-1 h-4 w-4" /> : <Save className="mr-1 h-4 w-4" />}
                 Save
               </Button>
@@ -150,10 +150,10 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
         <span
           className={`px-3 py-1 rounded-full text-xs font-bold ${
             invoice.status === "PROCESSED"
-              ? "bg-green-100 text-green-700"
+              ? "bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-300"
               : invoice.status === "FAILED"
-              ? "bg-red-100 text-red-700"
-              : "bg-yellow-100 text-yellow-700"
+              ? "bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-300"
+              : "bg-yellow-100 text-yellow-700 dark:bg-yellow-950/50 dark:text-yellow-300"
           }`}
         >
           {invoice.status}
@@ -161,7 +161,9 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
         {invoice.gstValid != null && (
           <span
             className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${
-              invoice.gstValid ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+              invoice.gstValid
+                ? "bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-300"
+                : "bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-300"
             }`}
           >
             {invoice.gstValid ? (
@@ -173,17 +175,17 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
           </span>
         )}
         {invoice.gstState && (
-          <span className="px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-700">
+          <span className="px-3 py-1 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300 font-medium">
             {invoice.gstState}
           </span>
         )}
         {invoice.ocrEngine && (
-          <span className="px-3 py-1 rounded-full text-xs bg-gray-100 text-gray-600">
+          <span className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-medium">
             {invoice.ocrEngine}
           </span>
         )}
         {invoice.processingTime && (
-          <span className="px-3 py-1 rounded-full text-xs bg-gray-100 text-gray-600">
+          <span className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-medium">
             {invoice.processingTime.toFixed(1)}s
           </span>
         )}
@@ -191,9 +193,9 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Vendor Info */}
-        <div className="border rounded-xl bg-white shadow-sm p-5">
-          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 flex items-center gap-2">
-            <Building2 className="h-4 w-4" /> Vendor Details
+        <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm p-5">
+          <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+            <Building2 className="h-4 w-4 text-blue-600 dark:text-blue-400" /> Vendor Details
           </h3>
           <div className="space-y-3">
             <InfoRow label="Vendor Name" value={invoice.vendor} />
@@ -204,9 +206,9 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
         </div>
 
         {/* Customer & Invoice Info */}
-        <div className="border rounded-xl bg-white shadow-sm p-5">
-          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 flex items-center gap-2">
-            <FileText className="h-4 w-4" /> Invoice Details
+        <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm p-5">
+          <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+            <FileText className="h-4 w-4 text-blue-600 dark:text-blue-400" /> Invoice Details
           </h3>
           <div className="space-y-3">
             <InfoRow label="Invoice #" value={invoice.invoiceNumber} />
@@ -222,13 +224,13 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
 
       {/* Line Items */}
       {items.length > 0 && (
-        <div className="border rounded-xl bg-white shadow-sm overflow-hidden">
-          <div className="p-5 border-b bg-gray-50/50">
-            <h3 className="font-semibold">Line Items ({items.length})</h3>
+        <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+          <div className="p-5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40">
+            <h3 className="font-semibold text-slate-900 dark:text-slate-100">Line Items ({items.length})</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50 text-gray-600 text-xs uppercase">
+              <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 text-xs uppercase font-semibold">
                 <tr>
                   <th className="px-4 py-3 text-left">#</th>
                   <th className="px-4 py-3 text-left">Description</th>
@@ -238,15 +240,15 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
                   <th className="px-4 py-3 text-right">Amount</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {items.map((item: any, i: number) => (
-                  <tr key={i} className="border-t hover:bg-gray-50">
-                    <td className="px-4 py-3 text-gray-400">{i + 1}</td>
-                    <td className="px-4 py-3 font-medium">{item.name || item.description || "-"}</td>
-                    <td className="px-4 py-3 text-gray-500 font-mono text-xs">{item.hsn_code || "-"}</td>
-                    <td className="px-4 py-3 text-right">{item.qty ?? "-"}</td>
-                    <td className="px-4 py-3 text-right">{item.rate != null ? formatCurrency(item.rate) : "-"}</td>
-                    <td className="px-4 py-3 text-right font-semibold">
+                  <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="px-4 py-3 text-slate-400 dark:text-slate-500">{i + 1}</td>
+                    <td className="px-4 py-3 font-medium text-slate-900 dark:text-slate-100">{item.name || item.description || "-"}</td>
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400 font-mono text-xs">{item.hsn_code || "-"}</td>
+                    <td className="px-4 py-3 text-right text-slate-700 dark:text-slate-300">{item.qty ?? "-"}</td>
+                    <td className="px-4 py-3 text-right text-slate-700 dark:text-slate-300">{item.rate != null ? formatCurrency(item.rate) : "-"}</td>
+                    <td className="px-4 py-3 text-right font-semibold text-slate-900 dark:text-slate-100">
                       {formatCurrency(item.price || item.amount)}
                     </td>
                   </tr>
@@ -258,8 +260,8 @@ export default function InvoiceDetailView({ invoice }: { invoice: Invoice }) {
       )}
 
       {/* Amounts */}
-      <div className="border rounded-xl bg-white shadow-sm p-5">
-        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+      <div className="border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 shadow-sm p-5">
+        <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-4">
           Amounts & Tax Breakdown
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -286,9 +288,9 @@ function InfoRow({
   mono?: boolean;
 }) {
   return (
-    <div className="flex justify-between items-center">
-      <span className="text-sm text-gray-500">{label}</span>
-      <span className={`text-sm font-medium text-gray-800 ${mono ? "font-mono" : ""}`}>
+    <div className="flex justify-between items-center py-1">
+      <span className="text-sm font-medium text-slate-600 dark:text-slate-400">{label}</span>
+      <span className={`text-sm font-semibold text-slate-900 dark:text-slate-100 ${mono ? "font-mono" : ""}`}>
         {value || "-"}
       </span>
     </div>
@@ -309,9 +311,15 @@ function AmountBox({
   const display = isNaN(num) ? "-" : `₹${num.toLocaleString("en-IN", { minimumFractionDigits: 2 })}`;
 
   return (
-    <div className={`p-3 rounded-lg ${highlight ? "bg-blue-50 border-2 border-blue-200" : "bg-gray-50"}`}>
-      <p className="text-xs text-gray-500 uppercase">{label}</p>
-      <p className={`text-lg font-bold ${highlight ? "text-blue-700" : "text-gray-900"}`}>{display}</p>
+    <div
+      className={`p-3.5 rounded-lg transition-colors ${
+        highlight
+          ? "bg-blue-50/80 dark:bg-blue-950/40 border-2 border-blue-200 dark:border-blue-800"
+          : "bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800"
+      }`}
+    >
+      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</p>
+      <p className={`text-lg font-bold mt-0.5 ${highlight ? "text-blue-700 dark:text-blue-300" : "text-slate-900 dark:text-slate-100"}`}>{display}</p>
     </div>
   );
 }
