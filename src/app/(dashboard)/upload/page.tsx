@@ -1109,8 +1109,12 @@ function Field({
       <Input
         value={String(value)}
         onChange={(e) => onChange(e.target.value)}
-        className="text-white"
-        style={{ background: "var(--spx-canvas)", border: "1px solid var(--spx-border)", borderRadius: 0 }}
+        style={{
+          background: "var(--spx-canvas, #0b0d10)",
+          color: "var(--spx-text, #ffffff)",
+          border: "1px solid var(--spx-border)",
+          borderRadius: 0,
+        }}
       />
     </div>
   );
@@ -1138,7 +1142,7 @@ function AmountCard({
       }}
     >
       <p className="uppercase" style={{ fontSize: "10px", letterSpacing: "0.8px", color: "var(--spx-muted)" }}>{label}</p>
-      <p className={highlight ? "text-white" : ""} style={{ fontSize: "16px", fontWeight: 700, color: highlight ? "var(--spx-text)" : "#e2e1eb" }}>
+      <p style={{ fontSize: "16px", fontWeight: 700, color: highlight ? "var(--spx-text, #ffffff)" : "#e2e1eb" }}>
         {display}
       </p>
     </div>
