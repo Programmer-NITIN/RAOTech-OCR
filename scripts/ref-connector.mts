@@ -16,7 +16,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pushToTally, pingTally, type TallyGateway } from "../src/lib/tally/connector";
 
-const CLOUD = process.env.CLOUD_URL || "http://localhost:3100";
+const CLOUD = (process.env.CLOUD_URL || "http://localhost:3000").trim();
 const STATE = path.join(process.cwd(), ".ref-connector.json");
 const gateway: TallyGateway = {
   host: process.env.TALLY_HOST || "localhost",

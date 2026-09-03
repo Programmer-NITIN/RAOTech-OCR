@@ -533,6 +533,7 @@ export default function VoucherReview({
                                   ref={isFirstUnmapped ? firstUnmappedRef : undefined}
                                   ledgers={ledgers}
                                   value={l.ledgerId}
+                                  role={l.role}
                                   onChange={(id) => setLineLedger(l.id, id)}
                                   onCreated={(led) => setLedgers((prev) => [...prev, led])}
                                 />
