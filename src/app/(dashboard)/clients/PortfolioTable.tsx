@@ -4,7 +4,15 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AlertTriangle, Clock, Loader2, Send, CheckCircle2 } from "lucide-react";
 import type { PortfolioRow } from "@/lib/portfolio";
-import { attentionRank } from "@/lib/portfolio";
+
+function attentionRank(r: PortfolioRow): number {
+  if (r.failedCount > 0) return 0;
+  if (r.stuckCount > 0) return 1;
+  if (r.unsyncedMasters > 0 && r.readyCount > 0) return 2;
+  if (r.readyCount > 0) return 3;
+  if (r.needsReviewCount > 0) return 4;
+  return 5;
+}
 
 /**
  * One row per client, and one sentence per row saying what is wrong.
