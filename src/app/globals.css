@@ -239,6 +239,20 @@
   body {
     @apply bg-background text-foreground;
   }
+  select {
+    @apply bg-card text-card-foreground border-border;
+  }
+  select option {
+    @apply bg-card text-card-foreground;
+  }
+  .dark select option {
+    background-color: #161920;
+    color: #e8e8ed;
+  }
+  .light select option {
+    background-color: #ffffff;
+    color: #111827;
+  }
 }
 
 /* ── Scrollbar ── */

@@ -272,12 +272,12 @@ export default function SheetWizard({
               <Label htmlFor="docType">Document type</Label>
               <select
                 id="docType"
-                className="mt-1.5 w-full rounded-md border bg-transparent px-3 py-2 text-sm"
+                className="mt-1.5 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
                 value={docType}
                 onChange={(e) => setDocType(e.target.value as ExcelDocType)}
               >
                 {Object.entries(DOC_TYPE_LABELS).map(([v, l]) => (
-                  <option key={v} value={v}>
+                  <option key={v} value={v} className="bg-card text-foreground">
                     {l}
                   </option>
                 ))}
@@ -287,12 +287,12 @@ export default function SheetWizard({
               <Label htmlFor="itemMode">Does the sheet have item detail?</Label>
               <select
                 id="itemMode"
-                className="mt-1.5 w-full rounded-md border bg-transparent px-3 py-2 text-sm"
+                className="mt-1.5 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
                 value={itemMode}
                 onChange={(e) => setItemMode(e.target.value as ItemMode)}
               >
-                <option value="WITHOUT_ITEM">No — one row per bill</option>
-                <option value="WITH_ITEM">Yes — one row per line item</option>
+                <option value="WITHOUT_ITEM" className="bg-card text-foreground">No — one row per bill</option>
+                <option value="WITH_ITEM" className="bg-card text-foreground">Yes — one row per line item</option>
               </select>
               <p className="mt-1.5 text-xs text-muted-foreground">
                 With item detail, several rows sharing an invoice number become one voucher.
@@ -394,7 +394,7 @@ export default function SheetWizard({
                     {required && <span className="ml-1 text-destructive">*</span>}
                   </Label>
                   <select
-                    className={`mt-1 w-full rounded-md border bg-transparent px-3 py-2 text-sm ${
+                    className={`mt-1 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground ${
                       required && value === null ? "border-amber-500/60" : ""
                     }`}
                     value={value ?? ""}
@@ -402,9 +402,9 @@ export default function SheetWizard({
                       setField(f.key, e.target.value === "" ? null : Number(e.target.value))
                     }
                   >
-                    <option value="">— not in this sheet —</option>
+                    <option value="" className="bg-card text-muted-foreground">— not in this sheet —</option>
                     {headers.map((h, i) => (
-                      <option key={i} value={i}>
+                      <option key={i} value={i} className="bg-card text-foreground">
                         {h || `Column ${i + 1}`}
                       </option>
                     ))}
@@ -476,15 +476,15 @@ export default function SheetWizard({
                 <div key={k}>
                   <Label className="text-xs uppercase">{k}</Label>
                   <select
-                    className="mt-1 w-full rounded-md border bg-transparent px-3 py-2 text-sm"
+                    className="mt-1 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
                     value={mapping.gst[k] ?? ""}
                     onChange={(e) =>
                       setGst({ [k]: e.target.value === "" ? null : Number(e.target.value) })
                     }
                   >
-                    <option value="">— none —</option>
+                    <option value="" className="bg-card text-muted-foreground">— none —</option>
                     {headers.map((h, i) => (
-                      <option key={i} value={i}>
+                      <option key={i} value={i} className="bg-card text-foreground">
                         {h || `Column ${i + 1}`}
                       </option>
                     ))}
@@ -497,7 +497,7 @@ export default function SheetWizard({
               <div>
                 <Label className="text-xs">Rate column</Label>
                 <select
-                  className="mt-1 w-full rounded-md border bg-transparent px-3 py-2 text-sm"
+                  className="mt-1 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
                   value={mapping.gst.rateColumn ?? ""}
                   onChange={(e) =>
                     setGst({
@@ -505,9 +505,9 @@ export default function SheetWizard({
                     })
                   }
                 >
-                  <option value="">— use a flat rate —</option>
+                  <option value="" className="bg-card text-muted-foreground">— use a flat rate —</option>
                   {headers.map((h, i) => (
-                    <option key={i} value={i}>
+                    <option key={i} value={i} className="bg-card text-foreground">
                       {h || `Column ${i + 1}`}
                     </option>
                   ))}
@@ -558,13 +558,13 @@ export default function SheetWizard({
               <div key={key}>
                 <Label className="text-xs">{label}</Label>
                 <select
-                  className="mt-1 w-full rounded-md border bg-transparent px-3 py-2 text-sm"
+                  className="mt-1 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
                   value={(mapping.ledgers[key] as string | null) ?? ""}
                   onChange={(e) => setLedger(key, e.target.value || null)}
                 >
-                  <option value="">— none —</option>
+                  <option value="" className="bg-card text-muted-foreground">— none —</option>
                   {ledgers.map((l) => (
-                    <option key={l.id} value={l.id}>
+                    <option key={l.id} value={l.id} className="bg-card text-foreground">
                       {l.name}
                     </option>
                   ))}

@@ -29,29 +29,29 @@ const CATEGORIES: Record<CategoryKey, CategoryInfo> = {
     key: "PARTIES",
     label: "Parties (Debtors / Creditors)",
     Icon: Building2,
-    bgColor: "bg-blue-50 text-blue-700 border-blue-100",
-    textColor: "text-blue-700",
+    bgColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    textColor: "text-blue-400",
   },
   PURCHASE_SALES: {
     key: "PURCHASE_SALES",
     label: "Purchase & Sales Accounts",
     Icon: ShoppingBag,
-    bgColor: "bg-purple-50 text-purple-700 border-purple-100",
-    textColor: "text-purple-700",
+    bgColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+    textColor: "text-purple-400",
   },
   DUTIES_TAXES: {
     key: "DUTIES_TAXES",
     label: "Duties & Taxes (CGST / SGST / IGST)",
     Icon: Receipt,
-    bgColor: "bg-emerald-50 text-emerald-700 border-emerald-100",
-    textColor: "text-emerald-700",
+    bgColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    textColor: "text-emerald-400",
   },
   EXPENSES_OTHERS: {
     key: "EXPENSES_OTHERS",
     label: "Expenses & Other Accounts",
     Icon: Briefcase,
-    bgColor: "bg-amber-50 text-amber-700 border-amber-100",
-    textColor: "text-amber-700",
+    bgColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    textColor: "text-amber-400",
   },
 };
 
@@ -237,55 +237,55 @@ export const LedgerSelect = forwardRef<
         onClick={() => setOpen((o) => !o)}
         className={`w-full flex items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm text-left transition-all ${
           selected
-            ? "border-gray-300 bg-white text-gray-900 shadow-sm hover:border-gray-400"
-            : "border-red-300 bg-red-50/50 text-red-600 font-medium hover:border-red-400"
+            ? "border-border bg-card text-foreground shadow-sm hover:border-border/80 hover:bg-accent/40"
+            : "border-amber-500/40 bg-amber-500/10 text-amber-400 font-medium hover:border-amber-500/60"
         }`}
       >
         <span className="truncate flex items-center gap-1.5">
           {selected ? (
             <>
-              <span className="truncate">{selected.name}</span>
+              <span className="truncate font-medium">{selected.name}</span>
               {selected.group && (
-                <span className="text-[10px] text-gray-400 font-normal shrink-0">
+                <span className="text-[10px] text-muted-foreground font-normal shrink-0">
                   ({selected.group.replace(/_/g, " ")})
                 </span>
               )}
             </>
           ) : (
-            placeholder
+            <span className="text-muted-foreground">{placeholder}</span>
           )}
         </span>
-        <ChevronsUpDown className="h-4 w-4 shrink-0 text-gray-400" />
+        <ChevronsUpDown className="h-4 w-4 shrink-0 text-muted-foreground" />
       </button>
 
       {open && (
-        <div className="absolute z-50 mt-1 w-80 md:w-96 rounded-xl border border-slate-200 bg-white shadow-xl transition-all overflow-hidden left-0">
-          <div className="p-2 border-b bg-slate-50/80 flex items-center gap-2">
-            <Search className="h-4 w-4 text-slate-400 shrink-0 ml-1" />
+        <div className="absolute z-50 mt-1 w-80 md:w-96 rounded-xl border border-border bg-popover text-popover-foreground shadow-2xl transition-all overflow-hidden left-0">
+          <div className="p-2 border-b border-border bg-muted/40 flex items-center gap-2">
+            <Search className="h-4 w-4 text-muted-foreground shrink-0 ml-1" />
             <input
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search by name or category…"
-              className="w-full bg-transparent border-0 px-1 py-1 text-sm outline-none text-slate-800 placeholder:text-slate-400"
+              className="w-full bg-transparent border-0 px-1 py-1 text-sm outline-none text-foreground placeholder:text-muted-foreground"
             />
           </div>
 
-          <div className="max-h-72 overflow-y-auto p-1 divide-y divide-slate-100">
+          <div className="max-h-72 overflow-y-auto p-1 divide-y divide-border/40">
             {categorized.map(({ info, isPrimary, items }) => (
               <div key={info.key} className="py-1">
                 {/* Category Header */}
-                <div className="px-2 py-1 flex items-center justify-between text-xs font-semibold text-slate-500">
+                <div className="px-2 py-1 flex items-center justify-between text-xs font-semibold text-muted-foreground">
                   <span className="flex items-center gap-1.5">
-                    <info.Icon className="h-3.5 w-3.5 text-slate-500 shrink-0" />
-                    <span className="text-slate-700">{info.label}</span>
+                    <info.Icon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                    <span className="text-foreground/80">{info.label}</span>
                     {isPrimary && (
-                      <span className="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.2 rounded-full font-medium">
+                      <span className="text-[10px] bg-primary/20 text-primary px-1.5 py-0.5 rounded-full font-medium">
                         Suggested
                       </span>
                     )}
                   </span>
-                  <span className="text-[11px] font-normal text-slate-400 bg-slate-100 px-1.5 rounded-full">
+                  <span className="text-[11px] font-normal text-muted-foreground bg-muted px-1.5 rounded-full">
                     {items.length}
                   </span>
                 </div>
@@ -303,19 +303,19 @@ export const LedgerSelect = forwardRef<
                       }}
                       className={`w-full flex items-center justify-between px-3 py-1.5 text-sm rounded-lg text-left transition-colors ${
                         value === l.id
-                          ? "bg-blue-50 text-blue-900 font-medium"
-                          : "hover:bg-slate-100 text-slate-700"
+                          ? "bg-primary/15 text-primary font-medium"
+                          : "hover:bg-accent hover:text-accent-foreground text-foreground"
                       }`}
                     >
                       <div className="min-w-0 flex-1 pr-2">
                         <div className="truncate font-normal">{l.name}</div>
                         {l.group && (
-                          <div className="text-[10px] text-slate-400 truncate">
+                          <div className="text-[10px] text-muted-foreground truncate">
                             {l.group.replace(/_/g, " ")}
                           </div>
                         )}
                       </div>
-                      {value === l.id && <Check className="h-4 w-4 text-blue-600 shrink-0" />}
+                      {value === l.id && <Check className="h-4 w-4 text-primary shrink-0" />}
                     </button>
                   ))}
                 </div>
@@ -323,7 +323,7 @@ export const LedgerSelect = forwardRef<
             ))}
 
             {categorized.length === 0 && (
-              <div className="px-4 py-6 text-center text-xs text-slate-400">
+              <div className="px-4 py-6 text-center text-xs text-muted-foreground">
                 No ledger matches found for &ldquo;{query}&rdquo;
               </div>
             )}
@@ -334,7 +334,7 @@ export const LedgerSelect = forwardRef<
               type="button"
               onClick={handleCreate}
               disabled={creating}
-              className="w-full flex items-center gap-2 px-3 py-2.5 text-sm font-medium border-t bg-slate-50 text-blue-600 hover:bg-blue-50 transition-colors"
+              className="w-full flex items-center gap-2 px-3 py-2.5 text-sm font-medium border-t border-border bg-muted/20 text-primary hover:bg-primary/10 transition-colors"
             >
               {creating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
               Create &ldquo;{query.trim()}&rdquo; as Ledger

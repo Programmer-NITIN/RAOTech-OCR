@@ -148,7 +148,7 @@ export default function MasterPanel({
             </Label>
             <select
               id={`m-${f.key}`}
-              className="mt-1.5 w-full rounded-md border bg-transparent px-3 py-2 text-sm"
+              className="mt-1.5 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
               value={mapping[f.key] ?? ""}
               onChange={(e) =>
                 setMapping((m) => ({
@@ -157,9 +157,9 @@ export default function MasterPanel({
                 }))
               }
             >
-              <option value="">— not in this sheet —</option>
+              <option value="" className="bg-card text-muted-foreground">— not in this sheet —</option>
               {headers.map((h, i) => (
-                <option key={i} value={i}>
+                <option key={i} value={i} className="bg-card text-foreground">
                   {String(h || `Column ${i + 1}`)}
                 </option>
               ))}
